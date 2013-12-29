@@ -56,13 +56,40 @@ public class BinaryTree {
 		
 	// Deletion
 	
-	// Traversal
-		// Depth-first order
-			//Pre-order
-			//In-order
-			//Post-order
+	// Depth-first order Traversals
+	public void preorderTraversal(Node curr){
+		if(curr == null){
+			return;
+		}
+		doSomething(curr);
+		preorderTraversal(curr.leftChild);
+		preorderTraversal(curr.rightChild);
+	}
 	
-		// Breadth-first order
+	public void inorderTraversal(Node curr){
+		if(curr == null){
+			return;
+		}
+		inorderTraversal(curr.leftChild);
+		doSomething(curr);
+		inorderTraversal(curr.rightChild);
+	}
+	
+	public void postorderTraversal(Node curr){
+		if(curr == null){
+			return;
+		}
+		inorderTraversal(curr.leftChild);
+		inorderTraversal(curr.rightChild);
+		doSomething(curr);
+	}
+	
+	public void doSomething(Node n){
+		System.out.print(n.value);
+		System.out.print(",");
+	}
+	
+	// Breadth-first order Traversal
 	
 	// isRootedBinaryTree
 	
