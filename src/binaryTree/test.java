@@ -3,8 +3,11 @@ package binaryTree;
 public class test {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
+		BinaryTree testTree = new BinaryTree();
+		Node root = new Node(5);
+		testTree.insert(root);
+		
 	}
 
 }

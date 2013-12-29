@@ -5,19 +5,26 @@ public class Node {
 	// Fields
 	public Node leftChild;
 	public Node rightChild;
-	public int data;
+	public Node parent;
+	public int value;
 	
 	// Constructors
 	public Node(){
 		leftChild = null;
 		rightChild = null;
-		data = Integer.MIN_VALUE;
+		value = Integer.MIN_VALUE;
+	}
+	
+	public Node (int newValue){
+		leftChild = null;
+		rightChild = null;
+		value = newValue;
 	}
 		
-	public Node(Node left, Node right, int value){
+	public Node(Node left, Node right, int newValue){
 		leftChild = left;
 		rightChild = right;
-		data = value;
+		value = newValue;
 	}
 	
 	// Mutators
@@ -29,8 +36,8 @@ public class Node {
 		rightChild = right;
 	}
 	
-	public void setData(int value){
-		data = value;
+	public void setData(int newValue){
+		value = newValue;
 	}
 
 	// Accessors
@@ -42,8 +49,46 @@ public class Node {
 		return rightChild;
 	}
 	
-	public int getData(){
-		return data;
+	public int getValue(){
+		return value;
+	}
+	
+	// Comparators
+	public boolean isLessThan(Node b){
+		if(this.value < b.value){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public boolean isGreaterThan(Node b){
+		if(this.value > b.value){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public boolean isEqualTo(Node b){
+		if(this.value == b.value){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public int compareTo(Node b){
+		if(this.isLessThan(b)){
+			return -1;
+		}
+		if(this.isEqualTo(b)){
+			return 0;
+		}
+		if(this.isGreaterThan(b)){
+			return 1;
+		}
+		return Integer.MIN_VALUE;
 	}
 	
 }
