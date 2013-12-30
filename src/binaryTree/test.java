@@ -1,5 +1,8 @@
 package binaryTree;
-
+/*
+Change this class to jUnits
+http://www.tutorialspoint.com/junit/
+*/
 public class test {
 
 	public static void main(String[] args) {
