@@ -1,5 +1,9 @@
 package binaryTree;
 
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 public class BinaryTree {
 
 	// Fields
@@ -23,7 +27,7 @@ public class BinaryTree {
 		Node it = root;
 		
 		while(!hasNodeBeenAdded){
-			switch (a.compareTo(it)){
+			switch (a.compare(it)){
 				case -1:
 					if(it.leftChild==null){
 						it.leftChild = a;
@@ -89,7 +93,23 @@ public class BinaryTree {
 		System.out.print(",");
 	}
 	
-	// Breadth-first order Traversal
+	// Breadth-first order Traversal aka level-order
+	public void breadthfirstTraversal(){
+		if(root==null){return;}
+		Queue<Node> hold = new LinkedList<Node>();
+		hold.add(root);
+		while(!hold.isEmpty()){
+			Node x = hold.peek();
+			if(x.leftChild!=null){
+				hold.add(x.leftChild);
+			}
+			if(x.rightChild!=null){
+				hold.add(x.rightChild);
+			}
+			doSomething(x);
+			hold.poll();
+		}
+	}
 	
 	// isRootedBinaryTree
 	

@@ -78,7 +78,7 @@ public class Node {
 		}
 	}
 	
-	public int compareTo(Node b){
+	public int compare(Node b){
 		if(this.isLessThan(b)){
 			return -1;
 		}
