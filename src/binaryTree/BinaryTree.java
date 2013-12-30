@@ -1,7 +1,6 @@
 package binaryTree;
 
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class BinaryTree {
@@ -111,6 +110,15 @@ public class BinaryTree {
 		}
 	}
 	
+	// Binary Tree Properties
+	public void getTreeHeight(){
+		
+	}
+	
+	public void getNumberOfNodes(){
+		
+	}
+	
 	// isRootedBinaryTree
 	
 	// isFullBinaryTree
@@ -123,8 +131,29 @@ public class BinaryTree {
 	
 	// isBalancedBinaryTree
 	
-	// isDegenrateTree
-	
-	// Helper Functions
+	//A degenerate tree is a tree where each parent node 
+	//has only one associated child node. This means that performance-wise, 
+	//the tree will behave like a linked list data structure.
+	public boolean isDegenerateTree(){
+		if(root==null){return true;}
+		Queue<Node> temp = new LinkedList<Node>();
+		temp.add(root);
+		while(!temp.isEmpty()){
+			Node x = temp.peek();
+			if(x!=null){
+				if(x.leftChild != null && x.rightChild !=null){
+					return false;
+				}
+				if(x.leftChild != null){
+					temp.add(x.leftChild);
+				}
+				if(x.rightChild != null){
+					temp.add(x.rightChild);
+				}
+			}
+			temp.poll();
+		}
+		return true;
+	}
 
 }

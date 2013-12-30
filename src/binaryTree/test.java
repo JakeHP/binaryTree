@@ -18,6 +18,7 @@ public class test {
 		testTree.insert(d);
 		
 		// Traversal Tests
+		/*
 		testTree.preorderTraversal(testTree.root);
 		System.out.println("\n");
 		testTree.inorderTraversal(testTree.root);
@@ -25,6 +26,10 @@ public class test {
 		testTree.postorderTraversal(testTree.root);
 		System.out.println("\n");
 		testTree.breadthfirstTraversal();
+		*/
+		
+		// Property Tests
+		System.out.println("Is tree degenerate? "+testTree.isDegenerateTree());
 	}
 
 }
