@@ -168,11 +168,9 @@ public class BinaryTree {
 			Node x = temp.peek();
 			if(x!=null){
 				//Must have 2 valid children or 2 nulls
-				if(isFullInternalNode(x) || isLeafNode(x)){
-					if(isFullInternalNode(x)){ //If valid parent, check through children
+				if(isFullInternalNode(x) || isLeafNode(x)){//If valid parent, check through children
 						temp.add(x.leftChild);
 						temp.add(x.rightChild);
-					}
 				}else
 				{
 					return false;
@@ -222,7 +220,10 @@ public class BinaryTree {
 		
 		return true;
 	}
+	
 	// isCompleteBinaryTree
+	// All levels are full, except for the last. And all
+	// nodes in the last level are "all the way left"
 	
 	// isInfiniteCompleteBinaryTree
 	
