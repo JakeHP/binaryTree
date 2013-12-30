@@ -5,10 +5,10 @@ import java.util.Queue;
 
 public class BinaryTree {
 
-	// Fields
+// Fields
 	public Node root;
 	
-	// Constructors
+// Constructors
 	public BinaryTree(){
 		root = null;
 	}
@@ -17,7 +17,7 @@ public class BinaryTree {
 		root = r00t;
 	}
 
-	// Insertion
+// Insertion
 	public void insert(Node a){
 		if(a==null){return;}
 		
@@ -57,9 +57,9 @@ public class BinaryTree {
 		}
 	}
 		
-	// Deletion
+// Deletion
 	
-	// Depth-first order Traversals
+// Depth-first order Traversals
 	public void preorderTraversal(Node curr){
 		if(curr == null){
 			return;
@@ -78,7 +78,7 @@ public class BinaryTree {
 		inorderTraversal(curr.rightChild);
 	}
 	
-	public void postorderTraversal(Node curr){
+	public void postorderTraversal(Node curr, String purpose){
 		if(curr == null){
 			return;
 		}
@@ -88,11 +88,11 @@ public class BinaryTree {
 	}
 	
 	public void doSomething(Node n){
-		System.out.print(n.value);
-		System.out.print(",");
+			System.out.print(n.value);
+			System.out.print(",");
 	}
 	
-	// Breadth-first order Traversal aka level-order
+// Breadth-first order Traversal aka level-order
 	public void breadthfirstTraversal(){
 		if(root==null){return;}
 		Queue<Node> hold = new LinkedList<Node>();
@@ -110,7 +110,42 @@ public class BinaryTree {
 		}
 	}
 	
-	// Binary Tree Properties
+// Helper Functions
+	public int getDepth(Node n){
+		if(n==null || root==null){return Integer.MIN_VALUE;}
+		int depth=0;
+		while(n.value!=root.value){
+			n=n.parent;
+			depth++;
+		}
+		return depth;
+	}
+	
+	public boolean isLeafNode(Node n){
+		if(n.leftChild == null && n.rightChild == null){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public boolean isInternalNode(Node n){
+		if(n.leftChild !=null || n.rightChild !=null){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public boolean isFullInternalNode(Node n){
+		if(n.leftChild !=null && n.rightChild !=null){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+// Binary Tree Properties
 	public void getTreeHeight(){
 		
 	}
@@ -118,8 +153,11 @@ public class BinaryTree {
 	public void getNumberOfNodes(){
 		
 	}
-		
-	// isFullBinaryTree
+			
+	// isFullBinaryTree()
+	// A Full Binary Tree is a tree in which every node other than the leaves has 
+	// two children. That is, every node in a binary tree has 
+	// either two children or no children.
 	public boolean isFullBinaryTree(){
 		if(root==null){return true;}
 		
@@ -130,8 +168,8 @@ public class BinaryTree {
 			Node x = temp.peek();
 			if(x!=null){
 				//Must have 2 valid children or 2 nulls
-				if((x.leftChild != null && x.rightChild != null) || (x.leftChild==null && x.rightChild==null)){
-					if((x.leftChild != null && x.rightChild != null)){ //If valid parent, check through children
+				if(isFullInternalNode(x) || isLeafNode(x)){
+					if(isFullInternalNode(x)){ //If valid parent, check through children
 						temp.add(x.leftChild);
 						temp.add(x.rightChild);
 					}
@@ -146,17 +184,54 @@ public class BinaryTree {
 		return true;
 	}
 	
-	// isPerfectBinaryTree
-	
+	// isPerfectBinaryTree()
+	// A perfect binary tree is a full binary tree
+	// in which all leaves have the same depth/level.
+	public boolean isPerfectBinaryTree(){
+		if(root==null){return false;}
+		
+		if(!isFullBinaryTree()){return false;}
+		int lastLeafFoundDepth=Integer.MIN_VALUE;
+		
+		Queue<Node> temp = new LinkedList<Node>();
+		temp.add(root);
+		
+		while(!temp.isEmpty()){
+			Node x = temp.peek();
+			if(x!=null){
+				if(x.leftChild != null){
+					temp.add(x.leftChild);
+				}
+				if(x.rightChild != null){
+					temp.add(x.rightChild);
+				}
+				if(this.isLeafNode(x)){
+					// If first neaf lode, set lastDepth, otherwise compare
+					// and invalidate tree if not the same depth
+					if(lastLeafFoundDepth == Integer.MIN_VALUE){
+						lastLeafFoundDepth = getDepth(x);
+					}else{
+						if(lastLeafFoundDepth != getDepth(x)){
+							return false;
+						}
+					}
+				}
+			}
+			temp.poll();
+		}
+		
+		return true;
+	}
 	// isCompleteBinaryTree
 	
 	// isInfiniteCompleteBinaryTree
 	
 	// isBalancedBinaryTree
 	
-	//A degenerate tree is a tree where each parent node 
-	//has only one associated child node. This means that performance-wise, 
-	//the tree will behave like a linked list data structure.
+	// isDegenerateTree()
+	// A degenerate tree is a tree where each parent node 
+	// has only one associated child node. This means that performance-wise, 
+	// the tree will behave like a linked list data structure.
 	public boolean isDegenerateTree(){
 		if(root==null){return true;}
 		
@@ -166,7 +241,7 @@ public class BinaryTree {
 		while(!temp.isEmpty()){
 			Node x = temp.peek();
 			if(x!=null){
-				if(x.leftChild != null && x.rightChild !=null){ //Parent has 2 children, therefor not degenerate
+				if(isFullInternalNode(x)){
 					return false;
 				}
 				if(x.leftChild != null){

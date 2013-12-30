@@ -33,9 +33,18 @@ public class test {
 		System.out.println("\n");
 		*/
 		
+		// Helper Func Tests
+		/*
+		System.out.println(testTree.getDepth(root));
+		System.out.println(testTree.getDepth(a));
+		System.out.println(testTree.getDepth(b));
+		System.out.println(testTree.getDepth(c));
+		*/
+		
 		// Property Tests
 		//System.out.println("Is tree degenerate? "+testTree.isDegenerateTree());
-		System.out.println("Is it a full tree? "+testTree.isFullBinaryTree());
+		//System.out.println("Is it a full tree? "+testTree.isFullBinaryTree());
+		//System.out.println("Is it a perfect binary tree? "+testTree.isPerfectBinaryTree());
 	}
 
 }
