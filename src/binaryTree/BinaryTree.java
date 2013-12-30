@@ -118,10 +118,33 @@ public class BinaryTree {
 	public void getNumberOfNodes(){
 		
 	}
-	
-	// isRootedBinaryTree
-	
+		
 	// isFullBinaryTree
+	public boolean isFullBinaryTree(){
+		if(root==null){return true;}
+		
+		Queue<Node> temp = new LinkedList<Node>();
+		temp.add(root);
+		
+		while(!temp.isEmpty()){
+			Node x = temp.peek();
+			if(x!=null){
+				//Must have 2 valid children or 2 nulls
+				if((x.leftChild != null && x.rightChild != null) || (x.leftChild==null && x.rightChild==null)){
+					if((x.leftChild != null && x.rightChild != null)){ //If valid parent, check through children
+						temp.add(x.leftChild);
+						temp.add(x.rightChild);
+					}
+				}else
+				{
+					return false;
+				}
+			}
+			temp.poll();
+		}
+		
+		return true;
+	}
 	
 	// isPerfectBinaryTree
 	
@@ -136,12 +159,14 @@ public class BinaryTree {
 	//the tree will behave like a linked list data structure.
 	public boolean isDegenerateTree(){
 		if(root==null){return true;}
+		
 		Queue<Node> temp = new LinkedList<Node>();
 		temp.add(root);
+		
 		while(!temp.isEmpty()){
 			Node x = temp.peek();
 			if(x!=null){
-				if(x.leftChild != null && x.rightChild !=null){
+				if(x.leftChild != null && x.rightChild !=null){ //Parent has 2 children, therefor not degenerate
 					return false;
 				}
 				if(x.leftChild != null){
