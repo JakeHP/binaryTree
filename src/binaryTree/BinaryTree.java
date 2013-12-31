@@ -16,101 +16,6 @@ public class BinaryTree {
 	public BinaryTree(Node r00t){
 		root = r00t;
 	}
-
-// Insertion
-	public void insert(Node a){
-		if(a==null){return;}
-		if(root==null){root = a;root.parent=null;return;}
-		boolean hasNodeBeenAdded = false;
-		Node it = root;
-		while(!hasNodeBeenAdded){
-			switch (a.compare(it)){
-				case -1:
-					if(it.leftChild==null){
-						it.leftChild = a;
-						a.parent = it;
-						hasNodeBeenAdded=true;
-					}else{
-						it = it.leftChild;
-					}
-					break;
-				case 0:
-					System.out.println("Node Already Exists.");
-					hasNodeBeenAdded=true;
-					break;
-				case 1:
-					if(it.rightChild==null){
-						it.rightChild = a;
-						a.parent = it;
-						hasNodeBeenAdded=true;
-					}else{
-						it = it.rightChild;
-					}
-					break;
-				case Integer.MIN_VALUE:
-					System.out.println("Error - Invalid Value.");
-					hasNodeBeenAdded=true;
-					break;
-			}
-		}
-	}
-		
-// Deletion
-	public void delete(Node n){
-		if(n==null){return;}
-		if(root==null){return;}
-	}
-	
-// Depth-first order Traversals
-	public void preorderTraversal(Node curr){
-		if(curr == null){
-			return;
-		}
-		doSomething(curr);
-		preorderTraversal(curr.leftChild);
-		preorderTraversal(curr.rightChild);
-	}
-	
-	public void inorderTraversal(Node curr){
-		if(curr == null){
-			return;
-		}
-		inorderTraversal(curr.leftChild);
-		doSomething(curr);
-		inorderTraversal(curr.rightChild);
-	}
-	
-	public void postorderTraversal(Node curr, String purpose){
-		if(curr == null){
-			return;
-		}
-		inorderTraversal(curr.leftChild);
-		inorderTraversal(curr.rightChild);
-		doSomething(curr);
-	}
-	
-	public void doSomething(Node n){
-			System.out.print(n.value);
-			System.out.print(",");
-	}
-	
-// Breadth-first order Traversal aka level-order
-	public void breadthfirstTraversal(){
-		if(root==null){return;}
-		Queue<Node> hold = new LinkedList<Node>();
-		hold.add(root);
-		while(!hold.isEmpty()){
-			Node x = hold.peek();
-			if(x.leftChild!=null){
-				hold.add(x.leftChild);
-			}
-			if(x.rightChild!=null){
-				hold.add(x.rightChild);
-			}
-			doSomething(x);
-			hold.poll();
-		}
-	}
 	
 // Helper Functions
 	public int getDepth(Node n){
@@ -164,6 +69,128 @@ public class BinaryTree {
 			hold.poll();
 		}
 		return count;
+	}
+	
+	public Node getNextLowestNode(Node n){
+		Node d = new Node();
+		//TODO
+		return d;
+	}
+
+// Insertion
+	public void insert(Node a){
+		if(a==null){return;}
+		if(root==null){root = a;root.parent=null;return;}
+		boolean hasNodeBeenAdded = false;
+		Node it = root;
+		while(!hasNodeBeenAdded){
+			switch (a.compare(it)){
+				case -1:
+					if(it.leftChild==null){
+						it.leftChild = a;
+						a.parent = it;
+						hasNodeBeenAdded=true;
+					}else{
+						it = it.leftChild;
+					}
+					break;
+				case 0:
+					System.out.println("insert() - Error - Node Already Exists.");
+					hasNodeBeenAdded=true;
+					break;
+				case 1:
+					if(it.rightChild==null){
+						it.rightChild = a;
+						a.parent = it;
+						hasNodeBeenAdded=true;
+					}else{
+						it = it.rightChild;
+					}
+					break;
+				case Integer.MIN_VALUE:
+					System.out.println("insert() - Error - Invalid Value.");
+					hasNodeBeenAdded=true;
+					break;
+			}
+		}
+	}
+		
+// Deletion
+	public void delete(Node n){
+		if(n==null){return;}
+		if(root==null){return;}
+		boolean deleted = false;
+		Queue<Node> hold = new LinkedList<Node>();
+		hold.add(root);
+		while(!hold.isEmpty() && !deleted){
+			Node x = hold.peek();
+			if(x.leftChild!=null){
+				hold.add(x.leftChild);
+			}
+			if(x.rightChild!=null){
+				hold.add(x.rightChild);
+			}
+			if(x.value==n.value){
+				deleted = true;
+				Node temp = getNextLowestNode(x);
+				//TODO
+			}
+			hold.poll();
+		}
+		if(!deleted){
+			System.out.println("delete() - Error - Node not found.");
+		}
+	}
+	
+// Depth-first order Traversals
+	public void preorderTraversal(Node curr){
+		if(curr == null){
+			return;
+		}
+		doSomething(curr);
+		preorderTraversal(curr.leftChild);
+		preorderTraversal(curr.rightChild);
+	}
+	
+	public void inorderTraversal(Node curr){
+		if(curr == null){
+			return;
+		}
+		inorderTraversal(curr.leftChild);
+		doSomething(curr);
+		inorderTraversal(curr.rightChild);
+	}
+	
+	public void postorderTraversal(Node curr, String purpose){
+		if(curr == null){
+			return;
+		}
+		inorderTraversal(curr.leftChild);
+		inorderTraversal(curr.rightChild);
+		doSomething(curr);
+	}
+	
+	public void doSomething(Node n){
+			System.out.print(n.value);
+			System.out.print(",");
+	}
+	
+// Breadth-first order Traversal aka level-order
+	public void breadthfirstTraversal(){
+		if(root==null){return;}
+		Queue<Node> hold = new LinkedList<Node>();
+		hold.add(root);
+		while(!hold.isEmpty()){
+			Node x = hold.peek();
+			if(x.leftChild!=null){
+				hold.add(x.leftChild);
+			}
+			if(x.rightChild!=null){
+				hold.add(x.rightChild);
+			}
+			doSomething(x);
+			hold.poll();
+		}
 	}
 	
 // Binary Tree Properties
