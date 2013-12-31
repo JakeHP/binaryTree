@@ -16,6 +16,7 @@ public class test {
 		Node d = new Node(1);
 		Node e = new Node(4);
 		Node f = new Node(7);
+		Node g = new Node(10);
 		testTree.insert(root);
 		testTree.insert(a);
 		testTree.insert(b);
@@ -23,6 +24,7 @@ public class test {
 		testTree.insert(d);
 		testTree.insert(e);
 		testTree.insert(f);
+		testTree.insert(g);
 		
 		// Traversal Tests
 		/*
@@ -45,9 +47,14 @@ public class test {
 		*/
 		
 		// Property Tests
-		//System.out.println("Is tree degenerate? "+testTree.isDegenerateTree());
-		//System.out.println("Is it a full tree? "+testTree.isFullBinaryTree());
-		//System.out.println("Is it a perfect binary tree? "+testTree.isPerfectBinaryTree());
+		/*
+		System.out.println("Is tree degenerate? "+testTree.isDegenerateTree());
+		System.out.println("Is it a full tree? "+testTree.isFullBinaryTree());
+		System.out.println("Is it a perfect binary tree? "+testTree.isPerfectBinaryTree());
+		System.out.println("Number of Nodes in the tree: "+testTree.getNumberOfNodes());
+		System.out.println("Height of tree: "+testTree.getTreeHeight());
+		*/
+		
 	}
 
 }
