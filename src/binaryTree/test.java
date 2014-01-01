@@ -54,6 +54,7 @@ public class test {
 		System.out.println("Number of Nodes in the tree: "+testTree.getNumberOfNodes());
 		System.out.println("Height of tree: "+testTree.getTreeHeight());
 		*/
+		System.out.println("Is complete binary tree? "+testTree.isCompleteBinaryTree());
 		
 	}
 

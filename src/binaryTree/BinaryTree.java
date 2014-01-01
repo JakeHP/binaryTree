@@ -1,5 +1,6 @@
 package binaryTree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -124,6 +125,8 @@ public class BinaryTree {
 	}
 		
 // Deletion
+// TODO
+// Need to change algorithm to find the node to be deleted.
 	public boolean delete(Node n){
 		if(n==null){return false;}
 		if(root==null){return false;}
@@ -341,6 +344,28 @@ public class BinaryTree {
 		//on last level, if at any point a null precedes a node, false.
 		//else true.
 		//TODO
+		if(root==null){return false;}
+		int height = this.getTreeHeight();
+		int numberOfNodesUntilLastLevel = (int) (Math.pow(2, height) - 1);
+		ArrayList<Node> temp = new ArrayList<Node>();
+		Queue<Node> hold = new LinkedList<Node>();
+		hold.add(root);
+		while(!hold.isEmpty()){
+			Node x = hold.peek();
+			if(x!=null){
+				temp.add(x);
+				if(x.leftChild != null){
+					hold.add(x.leftChild);
+				}
+				if(x.rightChild != null){
+					hold.add(x.rightChild);
+				}
+			}
+			hold.poll();
+		}
+		for(int i=0;i<temp.size();i++){
+			System.out.println(temp.get(i).value);
+		}
 		return true;
 	}
 	
