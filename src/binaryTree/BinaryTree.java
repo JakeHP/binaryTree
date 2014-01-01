@@ -71,9 +71,16 @@ public class BinaryTree {
 		return count;
 	}
 	
-	public Node getNextLowestNode(Node n){
-		Node d = new Node();
-		//TODO
+	public Node getDeepestLeftNode(Node n){
+		if(n==null){System.out.println("Error - getDeepestLeftNode() - returning bad node.");return new Node(Integer.MIN_VALUE);}
+		Node d = new Node(Integer.MIN_VALUE);
+		while(n!=null){
+			if(n.leftChild!=null){
+				n=n.leftChild;
+			}else{
+				return n;
+			}
+		}
 		return d;
 	}
 
@@ -132,8 +139,11 @@ public class BinaryTree {
 			}
 			if(x.value==n.value){
 				deleted = true;
-				Node temp = getNextLowestNode(x);
 				//TODO
+				//internal/leaf handler
+					//boolean - check if root / parent is null
+					//if right child is not null, get the right childs deepest left and replace (if root, parent is null)
+					//if the right child is null, replace with left child (if root, parent is null)
 			}
 			hold.poll();
 		}
@@ -286,8 +296,14 @@ public class BinaryTree {
 	// All levels are full, except for the last. And all
 	// nodes in the last level are "all the way left"
 	
-	// isBalancedBinaryTree()
-	// will be writing separate balanced tree structures
+	public boolean isCompleteBinaryTree(){
+		//get tree height
+		//iterate through levels, use BDFS, get fullness of each level excluding the last.
+		//on last level, if at any point a null precedes a node, false.
+		//else true.
+		//TODO
+		return true;
+	}
 	
 	// isDegenerateTree()
 	// A degenerate tree is a tree where each parent node 
