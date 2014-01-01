@@ -339,14 +339,8 @@ public class BinaryTree {
 	// All levels are full, except for the last. And all
 	// nodes in the last level are "all the way left"
 	public boolean isCompleteBinaryTree(){
-		//get tree height
-		//iterate through levels, use BDFS, get fullness of each level excluding the last.
-		//on last level, if at any point a null precedes a node, false.
-		//else true.
-		//TODO
 		if(root==null){return false;}
 		int height = this.getTreeHeight();
-		int numberOfNodesUntilLastLevel = (int) (Math.pow(2, height) - 1);
 		ArrayList<Node> temp = new ArrayList<Node>();
 		Queue<Node> hold = new LinkedList<Node>();
 		hold.add(root);
@@ -363,9 +357,36 @@ public class BinaryTree {
 			}
 			hold.poll();
 		}
-		for(int i=0;i<temp.size();i++){
-			System.out.println(temp.get(i).value);
+
+		int nodesBeforeSecondToLastLevel = (int) (Math.pow(2, (height-1)) - 1);
+		int nodesOnLastLevel = (temp.size()-((int) (Math.pow(2, height)-1)));	
+		// Shim off nodes prev to level before last.
+		for(int i=0;i<nodesBeforeSecondToLastLevel;i++){
+			temp.remove(0);
 		}
+		// Shim off last level nodes	
+		for(int z=0;z<nodesOnLastLevel;z++){
+			temp.remove(temp.size()-1);
+		}
+		// Check the children of the level before the last
+		boolean nullFound = false;
+		for(int v=0;v<temp.size();v++){
+			if(temp.get(v).leftChild!=null){
+				if(nullFound){
+					return false;
+				}
+			}else{
+				nullFound=true;
+			}
+			if(temp.get(v).rightChild!=null){
+				if(nullFound){
+					return false;
+				}
+			}else{
+				nullFound=true;
+			}
+		}
+
 		return true;
 	}
 	
