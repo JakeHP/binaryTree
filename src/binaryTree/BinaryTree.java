@@ -81,6 +81,7 @@ public class BinaryTree {
 				return n;
 			}
 		}
+		System.out.println("Error - getDeepestLeftNode() - Returning bad node.");
 		return d;
 	}
 
@@ -102,7 +103,7 @@ public class BinaryTree {
 					}
 					break;
 				case 0:
-					System.out.println("insert() - Error - Node Already Exists.");
+					System.out.println("Error - insert() - Node Already Exists.");
 					hasNodeBeenAdded=true;
 					break;
 				case 1:
@@ -115,7 +116,7 @@ public class BinaryTree {
 					}
 					break;
 				case Integer.MIN_VALUE:
-					System.out.println("insert() - Error - Invalid Value.");
+					System.out.println("Error - insert() - Invalid Value.");
 					hasNodeBeenAdded=true;
 					break;
 			}
@@ -138,36 +139,56 @@ public class BinaryTree {
 				hold.add(x.rightChild);
 			}
 			if(x.value==n.value){
-				deleted = true;
-				//TODO
-				//internal/leaf handler
-					//boolean - check if root / parent is null
-					//if right child is not null, get the right childs deepest left and replace (if root, parent is null)
-					//if the right child is null, replace with left child (if root, parent is null)
-				if(x.rightChild!=null){
+				if(x.rightChild!=null){ //Internal Node Handler
 					Node deepestLeft = getDeepestLeftNode(x.rightChild);
-					deepestLeft.parent.leftChild=null;
-					if(x.parent!=null){
-						//Determine which child x is
-						if(x.parent.leftChild.isEqualTo(x)){
-							
-						}else if(x.parent.rightChild.isEqualTo(x)){
-							x.parent.rightChild=deepestLeft; //realign parent
+					if(deepestLeft.rightChild!=null){ //Fix deepestLeft's right child (no left child, because it is deepest left)
+						deepestLeft.rightChild.parent=deepestLeft.parent;
+						deepestLeft.parent.leftChild=deepestLeft.rightChild;
+						deepestLeft.rightChild=null;
+					}
+					if(x.parent==null){ //DeepestLeft is new root
+						deepestLeft.parent=null;
+						root=deepestLeft;
+					}else{
+						if(x.parent.rightChild.isEqualTo(x)){ //Determine which child x is
 							deepestLeft.parent=x.parent;
-							
-							if(x.leftChild!=null){
-								deepestLeft.leftChild=x.leftChild;
-							}
+							deepestLeft.parent.rightChild=deepestLeft;
+						}
+						if(x.parent.leftChild.isEqualTo(x)){
+							deepestLeft.parent=x.parent;
+							deepestLeft.parent.leftChild=deepestLeft;
+						}
 					}
-						
+					if(x.leftChild!=null){ //If deleted node has left child, reassign parent
+						deepestLeft.leftChild=x.leftChild;
+						deepestLeft.leftChild.parent=deepestLeft;
 					}
-					return true;
-				}else{
-					
+					x.rightChild.parent=deepestLeft; //Fix original right childs relationship
+					deepestLeft.rightChild=x.rightChild;
+					deleted=true;
+				}
+				if(x.leftChild!=null && !deleted){ //Internal Node handler
+					x.parent.leftChild=x.leftChild;
+					x.leftChild.parent=x.parent;
+					deleted=true;
+				}
+				if(x.leftChild==null && x.rightChild==null && !deleted){ //Leaf node
+					if(x.parent!=null){
+						if(x.parent.rightChild.isEqualTo(x)){ //Determine which child x is
+							x.parent.rightChild=null;
+						}
+						if(x.parent.leftChild.isEqualTo(x)){
+							x.parent.leftChild=null;
+						}
+					}else{ //deleting root, when root is only node in tree.
+						root=null;
+					}
+					deleted=true;
 				}
 			}
 			hold.poll();
 		}
+		System.out.println("Error - delete() - Node not found.");
 		return false;
 	}
 	
@@ -314,7 +335,6 @@ public class BinaryTree {
 	// isCompleteBinaryTree()
 	// All levels are full, except for the last. And all
 	// nodes in the last level are "all the way left"
-	
 	public boolean isCompleteBinaryTree(){
 		//get tree height
 		//iterate through levels, use BDFS, get fullness of each level excluding the last.
