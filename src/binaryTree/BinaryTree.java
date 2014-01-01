@@ -123,9 +123,9 @@ public class BinaryTree {
 	}
 		
 // Deletion
-	public void delete(Node n){
-		if(n==null){return;}
-		if(root==null){return;}
+	public boolean delete(Node n){
+		if(n==null){return false;}
+		if(root==null){return false;}
 		boolean deleted = false;
 		Queue<Node> hold = new LinkedList<Node>();
 		hold.add(root);
@@ -144,12 +144,31 @@ public class BinaryTree {
 					//boolean - check if root / parent is null
 					//if right child is not null, get the right childs deepest left and replace (if root, parent is null)
 					//if the right child is null, replace with left child (if root, parent is null)
+				if(x.rightChild!=null){
+					Node deepestLeft = getDeepestLeftNode(x.rightChild);
+					deepestLeft.parent.leftChild=null;
+					if(x.parent!=null){
+						//Determine which child x is
+						if(x.parent.leftChild.isEqualTo(x)){
+							
+						}else if(x.parent.rightChild.isEqualTo(x)){
+							x.parent.rightChild=deepestLeft; //realign parent
+							deepestLeft.parent=x.parent;
+							
+							if(x.leftChild!=null){
+								deepestLeft.leftChild=x.leftChild;
+							}
+					}
+						
+					}
+					return true;
+				}else{
+					
+				}
 			}
 			hold.poll();
 		}
-		if(!deleted){
-			System.out.println("delete() - Error - Node not found.");
-		}
+		return false;
 	}
 	
 // Depth-first order Traversals
