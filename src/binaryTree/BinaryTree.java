@@ -125,7 +125,6 @@ public class BinaryTree {
 	}
 		
 // Deletion
-// TODO
 // Need to change algorithm to find the node to be deleted.
 	public boolean delete(Node n){
 		if(n==null){return false;}
@@ -192,7 +191,7 @@ public class BinaryTree {
 			hold.poll();
 		}
 		System.out.println("Error - delete() - Node not found.");
-		return false;
+		return deleted;
 	}
 	
 // Depth-first order Traversals
